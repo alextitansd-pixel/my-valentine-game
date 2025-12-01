@@ -12,5 +12,6 @@
     "react": "latest",
     "react-dom": "latest",
     "canvas-confetti": "latest"
+    "@vercel/kv": "latest"
   }
 }
