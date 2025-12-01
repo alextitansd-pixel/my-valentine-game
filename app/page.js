@@ -31,7 +31,7 @@ export default function Home() {
         <h1 style={{ fontSize: '3rem', color: 'white', marginBottom: '2rem', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
           {from} ♥ {to}
         </h1>
-        <p style={{ color: 'white', fontSize: '1.5rem', marginBottom: '3rem' }}>一起點 1314 次吧！</p>
+        <p style={{ color: 'white', fontSize: '1.5rem', marginBottom: '3rem' }}>一起點 {total} 次吧！</p>
 
         <button onClick={clickHeart} style={{ fontSize: '10rem', background: 'none', border: 'none', margin: '0 0 3rem 0', animation: 'pulse 2s infinite' }}>
           ❤️
