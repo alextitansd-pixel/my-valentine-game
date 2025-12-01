@@ -7,7 +7,7 @@ export default function Home({ searchParams }) {
   const [data, setData] = useState(null);
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
-  const total = 1314;
+  const total = 10;
 
   // 讀 KV 資料（用 fetch 呼叫 API）
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function Home({ searchParams }) {
     <div style={{ minHeight: '100vh', background: 'linear-gradient(to br, #ff9a9e, #fad0c4)', display:'flex', alignItems:'center', justifyContent:'center', padding:'1rem' }}>
       <div style={{ textAlign:'center' }}>
         <h1 style={{ fontSize:'3rem', color:'white', marginBottom:'2rem' }}>{data.from} ♥ {data.to}</h1>
-        <p style={{ color:'white', fontSize:'1.5rem', marginBottom:'3rem' }}>一起點 1314 次吧！</p>
+        <p style={{ color:'white', fontSize:'1.5rem', marginBottom:'3rem' }}>一起點 {total} 次吧！</p>
         <button onClick={click} style={{ fontSize:'10rem', background:'none', border:'none', animation:'pulse 2s infinite' }}>❤️</button>
         
         <div style={{ background: 'rgba(255,255,255,0.4)', height: '20px', borderRadius: '10px', margin: '1rem', overflow: 'hidden' }}>
