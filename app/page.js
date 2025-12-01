@@ -11,7 +11,7 @@ export default function Home() {
 
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
-  const total = 1314;
+  const total = 10;
 
   const clickHeart = () => {
     if (done) return;
