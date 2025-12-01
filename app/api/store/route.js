@@ -1,10 +1,13 @@
 import { kv } from '@vercel/kv';
 
 export async function POST(request) {
-  const { key, to, from, msg, img } = await request.json();
+  const body = await request.json();
+  const { key, to, from: fromName, msg, img } = body;
 
-  // 存到 KV（key 就是隨機 ID，如 'ming520'）
-  await kv.set(key, JSON.stringify({ to, from, msg, img }));
+  if (!key || !to || !fromName) {
+    return Response.json({ error: 'Missing fields' }, { status: 400 });
+  }
 
-  return Response.json({ success: true, shortUrl: `https://my-valentine-game-njy7-2025.vercel.app?key=${key}` });
+  await kv.set(key, JSON.stringify({ to, from: fromName, msg, img: img || '' }));
+  return Response.json({ success: true, url: `${process.env.NEXT_PUBLIC_VERCEL_URL || 'https://' + request.headers.get('host')}?key=${key}` });
 }
