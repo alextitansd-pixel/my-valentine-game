@@ -2,21 +2,17 @@
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 
-export default function Home({ searchParams }) {
-  const key = searchParams?.key || '';
+export default function Game({ params }) {
+  const key = params.key;
   const [data, setData] = useState(null);
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
-  const total = 10;
+  const total = 1314;
 
   useEffect(() => {
-    if (!key) {
-      setData({ to: '寶貝', from: '我', msg: '請輸入正確的 key', img: '' });
-      return;
-    }
     fetch(`/api/get?key=${key}`)
       .then(r => r.json())
-      .then(res => setData(res.data || { to: '寶貝', from: '未知', msg: '找不到資料', img: '' }))
+      .then(res => setData(res.data || { to: '寶貝', from: '我', msg: '請輸入正確密碼', img: '' }))
       .catch(() => setData({ to: '寶貝', from: '錯誤', msg: '載入失敗', img: '' }));
   }, [key]);
 
@@ -32,7 +28,7 @@ export default function Home({ searchParams }) {
     }
   };
 
-  if (!data) return <div className="min-h-screen flex items-center justify-center text-white text-3xl">載入中...</div>;
+  if (!data) return <div className="min-h-screen flex items-center justify-center text-3xl text-white">載入中…</div>;
 
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #ff9a9e, #fad0c4)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
@@ -40,15 +36,15 @@ export default function Home({ searchParams }) {
         <h1 style={{ fontSize: '3rem', color: 'white', marginBottom: '2rem', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
           {data.from} ♥ {data.to}
         </h1>
-        <p style={{ color: 'white', fontSize: '1.5rem', marginBottom: '3rem' }}>一起點 {total} 次吧！</p>
+        <p style={{ color: 'white', fontSize: '1.5rem', marginBottom: '3rem' }}>一起點 1314 次吧！</p>
 
         <button onClick={click} style={{ fontSize: '10rem', background: 'none', border: 'none', animation: 'pulse 2s infinite' }}>
           ❤️
         </button>
 
-        <div style={{ background: 'rgba(255,255,255,0.4)', height: '20px', borderRadius: '10px', margin: '1rem 2rem', overflow: 'hidden' }}>
-          <div style={{ width: `${progress}%`, height: '100%', background: 'linear-gradient(to right, #ff6b6b, #ee5a52)', transition: 'width 0.3s', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>
-            {progress > 15 && `${Math.round(progress)}%`}
+        <div style={{ background: 'rgba(255,255,255,0.4)', height: '20px', borderRadius: '10px', margin: '2rem', overflow: 'hidden' }}>
+          <div style={{ width: `${progress}%`, height: '100%', background: 'linear-gradient(to right, #ff6b6b, #ee5a52)', transition: 'width 0.3s' }}>
+            {progress > 15 && <span style={{ color: 'white', fontWeight: 'bold', marginLeft: '10px' }}>{Math.round(progress)}%</span>}
           </div>
         </div>
 
