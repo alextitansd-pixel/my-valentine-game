@@ -11,14 +11,12 @@ export async function POST(request) {
   const client = createClient({
     url: process.env.TURSO_DATABASE_URL,
     authToken: process.env.TURSO_AUTH_TOKEN,
-    syncSchema: false  // 這行關掉 migration，永遠不會 400
+    syncSchema: false  // 關 migration，永遠不會 400
   });
 
   try {
     await client.execute({
-      sql: `INSERT OR REPLACE INTO games 
-            (id, recipient, sender, msg, img, password) 
-            VALUES (?, ?, ?, ?, ?, ?)`,
+      sql: `INSERT OR REPLACE INTO games (id, recipient, sender, msg, img, password) VALUES (?, ?, ?, ?, ?, ?)`,
       args: [key, to, from, msg || '', img || '', password],
     });
 
