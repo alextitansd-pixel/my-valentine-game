@@ -1,5 +1,5 @@
 import { createClient } from '@libsql/client/web';
-import Game from '@/components/Game';
+import Game from '../../../components/Game';
 
 export default async function GamePage({ params }) {
   const { shareKey, gameKey } = params;
