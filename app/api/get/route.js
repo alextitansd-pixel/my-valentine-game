@@ -11,7 +11,7 @@ export async function GET(request) {
   const client = createClient({
     url: process.env.TURSO_DATABASE_URL,
     authToken: process.env.TURSO_AUTH_TOKEN,
-    skipMigrations: true   // 這一行解決所有 400 錯誤
+    syncSchema: false  // 這行關掉 migration，永遠不會 400
   });
 
   try {
