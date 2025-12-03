@@ -1,6 +1,6 @@
-import { createClient } from '@libsql/client/web';
+import { createClient } from '@libsql/client/web';  // 改成這行
 
-// GET /api/get?key=love2025
+// 其餘程式碼不變
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const key = searchParams.get('key');
