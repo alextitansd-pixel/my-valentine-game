@@ -1,4 +1,4 @@
-import { createClient } from '@libsql/client';
+import { createClient } from '@libsql/client/web';
 
 // GET /api/get?key=love2025
 export async function GET(request) {
