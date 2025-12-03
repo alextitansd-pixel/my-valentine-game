@@ -1,4 +1,4 @@
-import PasswordForm from '@/components/PasswordForm';
+import PasswordForm from '../../components/PasswordForm';
 
 export default function PasswordPage({ params }) {
   return <PasswordForm shareKey={params.shareKey} />;
