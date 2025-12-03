@@ -1,12 +1,16 @@
-// app/[key]/page.js   ← 整個檔案替換成這個
 import PasswordGate from '../../components/PasswordGate';
 
 export const dynamic = 'force-dynamic';
 
 export default function CustomHome({ params }) {
-  // 強制從 URL 取 key，永遠不會 undefined！
-  const key = typeof params.key === 'string' ? params.key : 
-              (typeof window !== 'undefined' ? window.location.pathname.split('/').pop() : 'error');
+  // 強制取 key
+  let key = '';
+  if (typeof params.key === 'string') {
+    key = params.key;
+  } else if (typeof window !== 'undefined') {
+    key = window.location.pathname.split('/').pop() || '';
+  }
+  console.log('頁面取的 key:', key);  // Debug: 看 Console 印什麼
 
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #ff9a9e, #fad0c4)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
