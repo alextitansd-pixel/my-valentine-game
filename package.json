@@ -12,6 +12,6 @@
     "react": "latest",
     "react-dom": "latest",
     "canvas-confetti": "latest",
-    "@vercel/kv": "latest"
+    "@libsql/client": "latest"  // 新加 Turso SDK
   }
 }
