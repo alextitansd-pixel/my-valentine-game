@@ -7,7 +7,7 @@ export default function Home({ searchParams }) {
   const [data, setData] = useState(null);
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
-  const total = 1314;
+  const total = 10;
 
   useEffect(() => {
     if (!key) {
@@ -40,7 +40,7 @@ export default function Home({ searchParams }) {
         <h1 style={{ fontSize: '3rem', color: 'white', marginBottom: '2rem', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
           {data.from} ♥ {data.to}
         </h1>
-        <p style={{ color: 'white', fontSize: '1.5rem', marginBottom: '3rem' }}>一起點 1314 次吧！</p>
+        <p style={{ color: 'white', fontSize: '1.5rem', marginBottom: '3rem' }}>一起點 {total} 次吧！</p>
 
         <button onClick={click} style={{ fontSize: '10rem', background: 'none', border: 'none', animation: 'pulse 2s infinite' }}>
           ❤️
