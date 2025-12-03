@@ -11,11 +11,21 @@ export default function PasswordGate({ correctKey }) {
     e.preventDefault();
     setError('');
 
-    const res = await fetch(`/api/get?key=${correctKey}`);
+    // Debug: 確認傳的 key 是什麼
+    console.log('傳的 key:', correctKey);
+
+    // 從 URL 強制取 key（防傳遞錯誤）
+    const url = new URL(window.location.href);
+    const urlKey = url.pathname.split('/').pop();  // 取最後一段
+    console.log('從 URL 取的 key:', urlKey);
+
+    const res = await fetch(`/api/get?key=${urlKey}`);
+    console.log('API 回傳:', res.status, await res.clone().json());
+
     const { data } = await res.json();
 
     if (data?.password && input === data.password) {
-      router.push(`/${correctKey}/game`);
+      router.push(`/${urlKey}/game`);
     } else {
       setError('密碼錯誤哦～再試一次');
     }
@@ -33,7 +43,7 @@ export default function PasswordGate({ correctKey }) {
       />
       {error && <p style={{ color: 'red', fontWeight: 'bold', margin: '0.5rem 0' }}>{error}</p>}
       <button type="submit" style={{ padding: '1rem 3rem', fontSize: '1.3rem', background: '#ff6b6b', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer' }}>
-        進入我的世界
+        進入我的世界 ❤️
       </button>
     </form>
   );
