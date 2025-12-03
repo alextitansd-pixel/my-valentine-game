@@ -1,6 +1,5 @@
-import { createClient } from '@libsql/client/web';  // 改成這行
+import { createClient } from '@libsql/client/web';
 
-// 其餘程式碼不變
 export async function POST(request) {
   const body = await request.json();
   const { key, to, from, msg, img, password = '5201314' } = body;
@@ -12,6 +11,7 @@ export async function POST(request) {
   const client = createClient({
     url: process.env.TURSO_DATABASE_URL,
     authToken: process.env.TURSO_AUTH_TOKEN,
+    skipMigrations: true   // 這一行解決所有 400 錯誤
   });
 
   try {
@@ -19,7 +19,7 @@ export async function POST(request) {
       CREATE TABLE IF NOT EXISTS games (
         id TEXT PRIMARY KEY,
         recipient TEXT NOT NULL,
-        sender TEXT NOT NULL,
+        sender NOT NULL,
         msg TEXT,
         img TEXT DEFAULT '',
         password TEXT DEFAULT '5201314'
@@ -27,9 +27,7 @@ export async function POST(request) {
     `);
 
     await client.execute({
-      sql: `INSERT OR REPLACE INTO games 
-            (id, recipient, sender, msg, img, password) 
-            VALUES (?, ?, ?, ?, ?, ?)`,
+      sql: `INSERT OR REPLACE INTO games (id, recipient, sender, msg, img, password) VALUES (?, ?, ?, ?, ?, ?)`,
       args: [key, to, from, msg || '', img || '', password],
     });
 
