@@ -1,17 +1,17 @@
-import { createClient } from '@libsql/client/web';  // 改成這行
+import { createClient } from '@libsql/client/web';
 
-// 其餘程式碼不變
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const key = searchParams.get('key');
 
   if (!key) {
-    return Response.json({ error: 'No key provided' }, { status: 400 });
+    return Response.json({ error: 'No key' }, { status: 400 });
   }
 
   const client = createClient({
     url: process.env.TURSO_DATABASE_URL,
     authToken: process.env.TURSO_AUTH_TOKEN,
+    skipMigrations: true   // 這一行解決所有 400 錯誤
   });
 
   try {
