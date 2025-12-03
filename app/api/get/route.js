@@ -1,10 +1,13 @@
 import { createClient } from '@libsql/client';
 
+// GET /api/get?key=love2025
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const key = searchParams.get('key');
 
-  if (!key) return Response.json({ error: 'No key' }, { status: 400 });
+  if (!key) {
+    return Response.json({ error: 'No key provided' }, { status: 400 });
+  }
 
   const client = createClient({
     url: process.env.TURSO_DATABASE_URL,
@@ -21,8 +24,18 @@ export async function GET(request) {
       return Response.json({ error: 'Not found' }, { status: 404 });
     }
 
-    return Response.json({ data: result.rows[0] });
-  } catch (err) {
+    const data = result.rows[0];
+    return Response.json({
+      data: {
+        to: data.recipient,
+        from: data.sender,
+        msg: data.msg,
+        img: data.img,
+        password: data.password,
+      },
+    });
+  } catch (error) {
+    console.error('Get error:', error);
     return Response.json({ error: 'Server error' }, { status: 500 });
   }
 }
