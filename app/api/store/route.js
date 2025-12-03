@@ -1,6 +1,6 @@
-import { createClient } from '@libsql/client/web';
+import { createClient } from '@libsql/client/web';  // 改成這行
 
-// POST /api/store
+// 其餘程式碼不變
 export async function POST(request) {
   const body = await request.json();
   const { key, to, from, msg, img, password = '5201314' } = body;
@@ -15,7 +15,6 @@ export async function POST(request) {
   });
 
   try {
-    // 第一次會自動建表
     await client.execute(`
       CREATE TABLE IF NOT EXISTS games (
         id TEXT PRIMARY KEY,
@@ -27,7 +26,6 @@ export async function POST(request) {
       )
     `);
 
-    // 寫入或覆蓋
     await client.execute({
       sql: `INSERT OR REPLACE INTO games 
             (id, recipient, sender, msg, img, password) 
